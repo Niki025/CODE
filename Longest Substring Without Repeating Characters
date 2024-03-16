@@ -1,0 +1,17 @@
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        if not s:
+            return 0
+        if len(s) == 1:
+            return 1
+        
+        ans = float('-inf')
+        tmp = ""
+        
+        for x in s:
+            if x in tmp:
+                tmp = tmp[tmp.find(x) + 1:]
+            tmp += x
+            ans = max(ans, len(tmp))
+        
+        return ans if ans != float('-inf') else 0
