@@ -1,0 +1,22 @@
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def balanceBST(self, root: TreeNode) -> TreeNode:
+        def sorted_array(root):
+            if not root:
+                return []
+            return sorted_array(root.left) + [root.val] + sorted_array(root.right)
+
+        def build_bst(nums, start, end):
+            if start > end:
+                return None
+
+            mid = (start + end) // 2
+            return TreeNode(nums[mid], build_bst(nums, start, mid - 1), build_bst(nums, mid + 1, end))
+
+        sorted_list = sorted_array(root)
+        return build_bst(sorted_list, 0, len(sorted_list) - 1)
